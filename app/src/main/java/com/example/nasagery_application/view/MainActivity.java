@@ -13,15 +13,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.nasagery_application.R;
 import com.example.nasagery_application.adapter.ImageAdapter;
 import com.example.nasagery_application.databinding.ActivityMainBinding;
 import com.example.nasagery_application.model.Item;
+import com.example.nasagery_application.model.Status;
 import com.example.nasagery_application.viewmodel.NASAViewModel;
 import com.example.nasagery_application.model.Response;
 import java.util.List;
+
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageAdapter imageAdapter;
     private EditText editText;
     private int pageSize = 20;
+    private Status status;
 
     private ActivityMainBinding activityMainBinding;
 
@@ -43,13 +46,18 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         nasaViewModel = ViewModelProviders.of(this).get(NASAViewModel.class);
         activityMainBinding.setViewModel(nasaViewModel);
+        status = new Status();
+
+        if(status.isNetworkAvailable(this)){
+            activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
+        }else{
+            activityMainBinding.statusImageview.setImageResource(R.drawable.ic_close_red_24dp);
+        }
 
         activityMainBinding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString());
-
             }
         });
 
@@ -57,16 +65,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Response response) {
 
-                if (response.success)
+                if (response.success) {
                     displayImages(response.image.getCollection().getItems());
-                else {
+                }else{
                     Toast.makeText(MainActivity.this, response.message, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-
 //      Initiates when the user pulls to refresh the recycler view.
 //      Once initiated, 20 more photos will be added to the view.
         activityMainBinding.swipeRecyclerview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -74,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             public void onRefresh() {
                 compositeDisposable.add(nasaViewModel.getImage(activityMainBinding.searchEdittext.getText().toString())
                         .subscribe(images -> {
-
                             {
                                 displayImages(images.getCollection().getItems());
                                 imageAdapter.notifyDataSetChanged();
@@ -83,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
                                 imageAdapter.limit = pageSize;
                                 Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
                             }
-
                             }, throwable -> {
                             Log.d("TAG_ERROR", throwable.getMessage());
                         }
@@ -142,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                         });
                         Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
                         Log.d("TAG_NUMBER", "" + pageSize);
-
                     }
                 }
             });
@@ -152,5 +154,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onResume(){
         super.onResume();
+        status = new Status();
+        if(status.isNetworkAvailable(this)){
+            activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
+        }else{
+            activityMainBinding.statusImageview.setImageResource(R.drawable.ic_close_red_24dp);
+
+        }
     }
 }

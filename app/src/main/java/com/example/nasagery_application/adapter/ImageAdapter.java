@@ -39,15 +39,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
 
-
         Item item = itemList.get(position);
-
         holder.binding.imagetitleTextview.setOnClickListener(v -> {
             boolean expanded = item.isNotExpand();
             item.setExpand(!expanded);
             notifyItemChanged(position);
         });
-
         holder.bind(item);
     }
 
@@ -70,7 +67,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             super(binding.getRoot());
             this.binding = binding;
         }
-
 
         public void bind(Item item)
         {

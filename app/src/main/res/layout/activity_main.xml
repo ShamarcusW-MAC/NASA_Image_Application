@@ -11,7 +11,6 @@
         <variable
             name="viewModel"
             type="com.example.nasagery_application.viewmodel.NASAViewModel" />
-        
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +22,7 @@
             android:id="@+id/title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/dimen16"
             android:text="NASAGERY"
             android:textColor="#FF0000"
             android:textSize="24sp"
@@ -37,14 +36,13 @@
             android:id="@+id/search_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"
+            android:layout_marginTop="@dimen/dimen16"
+            android:layout_marginRight="@dimen/dimen32"
+            android:layout_marginLeft="@dimen/dimen32"
             android:background="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
-
             />
 
         <Button
@@ -54,19 +52,27 @@
             android:text="SEARCH"
             android:textColor="#FFFFFF"
             android:background="@drawable/button_pressed"
-            android:layout_marginRight="32dp"
+            android:layout_marginRight="@dimen/dimen32"
             app:layout_constraintStart_toEndOf="@id/search_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/search_edittext"
             app:layout_constraintBottom_toBottomOf="@id/search_edittext"
             />
 
+        <ImageView
+            android:id="@+id/status_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen8"
+            app:layout_constraintStart_toStartOf="@id/search_edittext"
+            app:layout_constraintTop_toBottomOf="@id/search_edittext"
+            />
 
         <TextView
             android:id="@+id/see_more_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/dimen8"
             android:textColor="#FF0000"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,24 +82,21 @@
             tools:text="(Click title to see more)"
             />
 
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="@dimen/dimen120"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_edittext"
-
+            app:layout_constraintTop_toBottomOf="@id/status_imageview"
             >
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/image_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/dimen32"
                 />
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView

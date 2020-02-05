@@ -16,8 +16,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/dimen8"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="@dimen/dimen8"
+        app:cardCornerRadius="@dimen/dimen16"
         >
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +36,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold|italic"
                 android:text="@={data.title}"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dimen8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +47,7 @@
                 android:id="@+id/image_description_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/dimen8"
                 android:gravity="center"
                 android:textColor="#FF0000"
                 android:textSize="16sp"
@@ -59,7 +63,7 @@
                 android:id="@+id/image_author_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dimen8"
                 android:textColor="#FF0000"
                 android:textSize="16sp"
                 android:textStyle="bold"
