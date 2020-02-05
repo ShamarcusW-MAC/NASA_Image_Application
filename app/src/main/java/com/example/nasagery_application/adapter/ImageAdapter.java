@@ -25,6 +25,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         this.itemList = itemList;
     }
 
+
+    //This method sets the view for our content to be displayed.
     @NonNull
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +34,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         ImageItemLayoutBinding binding = ImageItemLayoutBinding.inflate(layoutInflater, parent, false);
         return new ImageViewHolder(binding);
     }
+
+    //This method binds the initialized values with the view. Fetches the appropriate data and fills
+    //the view's layout with the fetched data.
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
 
@@ -54,6 +59,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
 
+
+    //All of the appropriate data is held within this class
     class ImageViewHolder extends RecyclerView.ViewHolder {
         ImageView nasaImageView;
         ImageItemLayoutBinding binding;

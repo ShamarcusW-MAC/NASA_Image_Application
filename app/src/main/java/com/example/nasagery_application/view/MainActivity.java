@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Check if network is up and running
-        status = new Status();
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
         }else{
