@@ -49,6 +49,7 @@ public class Item implements Serializable {
     public boolean isNotExpand() {
         return expand;
     }
+
     public void setExpand(boolean expand) {
         this.expand = expand;
     }
