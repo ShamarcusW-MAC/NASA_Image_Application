@@ -15,11 +15,9 @@ import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
-
     private Context context;
     private List<Item> itemList;
     public int limit = 20;
-
 
     public ImageAdapter(Context context, List<Item> itemList){
 
@@ -32,10 +30,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         ImageItemLayoutBinding binding = ImageItemLayoutBinding.inflate(layoutInflater, parent, false);
-
         return new ImageViewHolder(binding);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
 

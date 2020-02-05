@@ -22,8 +22,6 @@ import com.example.nasagery_application.model.Status;
 import com.example.nasagery_application.viewmodel.NASAViewModel;
 import com.example.nasagery_application.model.Response;
 import java.util.List;
-
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,14 +44,17 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         nasaViewModel = ViewModelProviders.of(this).get(NASAViewModel.class);
         activityMainBinding.setViewModel(nasaViewModel);
-        status = new Status();
 
+
+        //Check if network is up and running
+        status = new Status();
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
         }else{
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_close_red_24dp);
         }
 
+        //Once button is clicked, the api call is made.
         activityMainBinding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //If the network request is successful, the item are displayed in recycler view.
+        //However, if the request has failed, an error message will appear.
         activityMainBinding.getViewModel().image.observe(this, new Observer<Response>() {
             @Override
             public void onChanged(Response response) {
@@ -72,8 +75,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
 //      Initiates when the user pulls to refresh the recycler view.
-//      Once initiated, 20 more photos will be added to the view.
+//      Once initiated, the recycler view refresh back to the starting value of items which is 20.
         activityMainBinding.swipeRecyclerview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -99,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Adapter is initialized and recycler view is filled with items
+    //Adapter is initialized and recycler view is filled with items once called upon and if
+    //api call is success
     private void displayImages(List<Item> images) {
         editText = findViewById(R.id.search_edittext);
         imageAdapter = new ImageAdapter(this, images);
@@ -107,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
 
+        //If the search comes up empty, a message saying "No Results." will be displayed.
+        //If the search is initiated without a string in the edit textview, then a message saying
+        //"No Search Word No Images!" will be displayed.
+        //If the search is successful, the adapter and layout manager are initialized, and the items
+        //are displayed
         if (images.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
@@ -127,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
 
+            //Whenever the user reaches to the bottom of the recycler view, the number of items
+            //is increased by 20 each time.
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

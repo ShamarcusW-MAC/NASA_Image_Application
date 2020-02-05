@@ -9,6 +9,7 @@ public class Status{
     public Status(){
 
     }
+    //Checks to see if the network is down or not
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
