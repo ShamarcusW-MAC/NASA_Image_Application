@@ -8,6 +8,9 @@ import retrofit2.http.Query;
 public interface NASAService {
 
     @GET("/search?media_type=image&q")
-    Observable<Image> getImage(@Query("q")String keyword);
+    Observable<Image> getImage(@Query("q")String keyword,
+                               @Query("page")int page);
 
+
+    //https://images-api.nasa.gov/search?media_type=image&q=earth&page=1
 }

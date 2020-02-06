@@ -16,15 +16,15 @@ public class NASAViewModel extends ViewModel {
     public MutableLiveData<Response> image = new MutableLiveData();
     private NASAFactory nasaFactory = new NASAFactory();
 
-    public Observable<Image> getImage(String url) {
-        return nasaFactory.getImage(url)
+    public Observable<Image> getImage(String url, int page) {
+        return nasaFactory.getImage(url, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public void makeCall(String editText) {
+    public void makeCall(String editText, int page) {
         if(editText != "") {
-            compositeDisposable.add(getImage("" + editText)
+            compositeDisposable.add(getImage("" + editText, page)
                     .subscribe(images -> {
 
                         {

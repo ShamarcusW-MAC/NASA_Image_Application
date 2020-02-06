@@ -40,6 +40,8 @@
             android:layout_marginRight="@dimen/dimen32"
             android:layout_marginLeft="@dimen/dimen32"
             android:background="#FFFFFF"
+            android:maxLines="1"
+            android:inputType="text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
@@ -87,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dimen120"
+            android:layout_marginBottom="@dimen/dimen48"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_imageview"
@@ -113,6 +116,34 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
 
+            />
+
+        <ImageButton
+            android:id="@+id/left_arrow_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen32"
+            android:layout_marginStart="@dimen/dimen120"
+            android:layout_marginBottom="@dimen/dimen32"
+            android:visibility="invisible"
+            android:src="@drawable/ic_arrow_back_blue_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/swipe_recyclerview"
+            />
+
+        <ImageButton
+            android:id="@+id/right_arrow_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen32"
+            android:layout_marginEnd="@dimen/dimen120"
+            android:layout_marginBottom="@dimen/dimen32"
+            android:visibility="invisible"
+            android:src="@drawable/ic_arrow_forward_blue_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/swipe_recyclerview"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

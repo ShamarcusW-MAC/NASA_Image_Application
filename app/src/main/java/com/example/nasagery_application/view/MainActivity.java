@@ -18,7 +18,7 @@ import com.example.nasagery_application.R;
 import com.example.nasagery_application.adapter.ImageAdapter;
 import com.example.nasagery_application.databinding.ActivityMainBinding;
 import com.example.nasagery_application.model.Item;
-import com.example.nasagery_application.model.Status;
+import com.example.nasagery_application.model.Utils;
 import com.example.nasagery_application.viewmodel.NASAViewModel;
 import com.example.nasagery_application.model.Response;
 import java.util.List;
@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
     private EditText editText;
+    private int itemCount;
     private int pageSize = 20;
-    private Status status;
+    private Utils status;
+    private int page = 1;
 
     private ActivityMainBinding activityMainBinding;
 
@@ -57,10 +59,40 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString());
+                activityMainBinding.rightArrowImageview.setVisibility(View.VISIBLE);
+                page = 1;
+                nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
             }
         });
 
+        activityMainBinding.leftArrowImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(page == 2)
+                {
+                    activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+                }
+                page -= 1;
+                nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
+                Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        activityMainBinding.rightArrowImageview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(page == 1)
+                {
+                    activityMainBinding.leftArrowImageview.setVisibility(View.VISIBLE);
+
+                }
+                page += 1;
+                nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
+                Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
+
+            }
+        });
         //If the network request is successful, the item are displayed in recycler view.
         //However, if the request has failed, an error message will appear.
         activityMainBinding.getViewModel().image.observe(this, new Observer<Response>() {
@@ -71,6 +103,9 @@ public class MainActivity extends AppCompatActivity {
                     displayImages(response.image.getCollection().getItems());
                 }else{
                     Toast.makeText(MainActivity.this, response.message, Toast.LENGTH_SHORT).show();
+                    activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+                    activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
+
                 }
             }
         });
@@ -80,15 +115,30 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.swipeRecyclerview.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                compositeDisposable.add(nasaViewModel.getImage(activityMainBinding.searchEdittext.getText().toString())
+                page = 1;
+                compositeDisposable.add(nasaViewModel.getImage(activityMainBinding.searchEdittext.getText().toString(), page)
                         .subscribe(images -> {
                             {
-                                displayImages(images.getCollection().getItems());
-                                imageAdapter.notifyDataSetChanged();
-                                activityMainBinding.swipeRecyclerview.setRefreshing(false);
-                                pageSize = 20;
-                                imageAdapter.limit = pageSize;
-                                Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
+                                if((status.isNetworkAvailable(MainActivity.this)) && (!activityMainBinding.searchEdittext.getText().toString().isEmpty())) {
+                                    displayImages(images.getCollection().getItems());
+                                    imageAdapter.notifyDataSetChanged();
+                                    activityMainBinding.swipeRecyclerview.setRefreshing(false);
+                                    activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+                                    pageSize = 20;
+//                                    imageAdapter.limit = pageSize;
+//                                    Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    activityMainBinding.swipeRecyclerview.setRefreshing(false);
+                                    activityMainBinding.imageRecyclerview.setVisibility(View.GONE);
+                                    activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
+                                    activityMainBinding.noresultsTextview.setText("No Search Word! No Images!");
+                                    activityMainBinding.noresultsTextview.setVisibility(View.VISIBLE);
+                                    activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+                                    activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
+
+                                }
                             }
                             }, throwable -> {
                             Log.d("TAG_ERROR", throwable.getMessage());
@@ -105,11 +155,14 @@ public class MainActivity extends AppCompatActivity {
     //Adapter is initialized and recycler view is filled with items once called upon and if
     //api call is success
     private void displayImages(List<Item> images) {
+        Log.d("TAG_COUNT", "" + images.size());
         editText = findViewById(R.id.search_edittext);
         imageAdapter = new ImageAdapter(this, images);
         recyclerView = findViewById(R.id.image_recyclerview);
+        itemCount = imageAdapter.getItemCount();
+//        itemCount = pageSize;
 
-        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(true);
 
         //If the search comes up empty, a message saying "No Results." will be displayed.
         //If the search is initiated without a string in the edit textview, then a message saying
@@ -127,6 +180,9 @@ public class MainActivity extends AppCompatActivity {
             activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
             activityMainBinding.noresultsTextview.setText("No Search Word! No Images!");
             activityMainBinding.noresultsTextview.setVisibility(View.VISIBLE);
+            activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+            activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
+
         } else {
             activityMainBinding.noresultsTextview.setVisibility(View.GONE);
             activityMainBinding.seeMoreTextview.setVisibility(View.VISIBLE);
@@ -135,6 +191,13 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(imageAdapter);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
+
+            if(images.size() < 100)
+            {
+                activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
+            } else {
+                activityMainBinding.rightArrowImageview.setVisibility(View.VISIBLE);
+            }
 
             //Whenever the user reaches to the bottom of the recycler view, the number of items
             //is increased by 20 each time.
@@ -146,16 +209,18 @@ public class MainActivity extends AppCompatActivity {
                     int totalItemCount = linearLayoutManager.getItemCount();
                     int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= pageSize) {
-                        pageSize += 20;
-                        imageAdapter.limit = pageSize;
+//                            page += 1;
+//                        pageSize += 20;
+//                        imageAdapter.getItemCount() = pageSize;
                         recyclerView.post(new Runnable() {
                             @Override
                             public void run() {
                                 imageAdapter.notifyDataSetChanged();
                             }
                         });
-                        Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
                         Log.d("TAG_NUMBER", "" + pageSize);
+                        Log.d("TAG_PAGE_NUMBER", "" + page);
                     }
                 }
             });
@@ -165,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onResume(){
         super.onResume();
-        status = new Status();
+        status = new Utils();
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
         }else{

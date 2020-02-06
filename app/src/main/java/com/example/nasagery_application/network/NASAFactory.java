@@ -24,8 +24,8 @@ public class NASAFactory {
         return retrofit.create(NASAService.class);
     }
 
-    public Observable<Image> getImage(String url) {
-        return nasaService.getImage(url);
+    public Observable<Image> getImage(String url, int page) {
+        return nasaService.getImage(url, page);
     }
 }
 
