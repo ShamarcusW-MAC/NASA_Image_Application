@@ -17,6 +17,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     private Context context;
     private List<Item> itemList;
+    public int limit = 20;
 
     public ImageAdapter(Context context, List<Item> itemList){
 
@@ -45,19 +46,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             item.setExpand(!expanded);
             notifyItemChanged(position);
         });
+
         holder.bind(item);
     }
 
     @Override
     public int getItemCount() {
 
-        return itemList == null ? 0 : itemList.size();
-//        if(itemList != null && itemList.size() > limit) {
-//            return limit;
-//        } else {
-//            return itemList.size() > 0 ?
-//                    itemList.size() : 0;
-//        }
+//        return itemList == null ? 0 : itemList.size();
+        if(itemList != null && itemList.size() > limit) {
+            return limit;
+        } else {
+            return itemList.size() > 0 ?
+                    itemList.size() : 0;
+        }
     }
 
 

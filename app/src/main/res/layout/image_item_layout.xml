@@ -28,6 +28,7 @@
             android:background="@color/colorDarkBlue"
             >
 
+
             <TextView
                 android:id="@+id/imagetitle_textview"
                 android:layout_width="wrap_content"
@@ -35,13 +36,13 @@
                 android:textColor="#FF0000"
                 android:textSize="24sp"
                 android:textStyle="bold|italic"
-                android:text="@={data.title}"
+                android:text="@{`Title: ` + data.title}"
                 android:layout_margin="@dimen/dimen8"
-                android:gravity="center"
+                android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="The Sun"
+                tools:text="NASA Earth Day 2019 Post of International Proportions"
                 />
 
             <TextView
@@ -53,7 +54,7 @@
                 android:textColor="#FF0000"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="@={data.description}"
+                android:text="@{`Description: ` + data.description}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imagetitle_textview"
@@ -68,7 +69,7 @@
                 android:textColor="#FF0000"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:text="@={data.secondaryCreator}"
+                android:text="@{`Creator: ` + data.secondaryCreator}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_description_textview"
@@ -83,7 +84,7 @@
                 android:textColor="#FF0000"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:text="@={data.dateCreated}"
+                android:text="@{`Date/Time: ` + data.dateCreated}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_author_textview"
@@ -96,10 +97,11 @@
                 android:layout_height="@dimen/dimen300"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
+                android:layout_marginBottom="@dimen/dimen16"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_date_textview"
-
+                app:layout_constraintBottom_toBottomOf="parent"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

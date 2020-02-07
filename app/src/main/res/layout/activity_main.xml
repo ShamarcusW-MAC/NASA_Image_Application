@@ -16,17 +16,19 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A4000000"
+        android:background="#D2000000"
         >
         <TextView
             android:id="@+id/title_textview"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen16"
-            android:text="NASAGERY"
+            android:text="@string/app_title"
             android:textColor="#FF0000"
             android:textSize="24sp"
-            android:textStyle="italic"
+            android:textStyle="italic|bold"
+            android:gravity="center"
+            android:background="@drawable/title_gradient_background"
             app:layout_constraintBottom_toTopOf="@id/search_edittext"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -35,26 +37,109 @@
         <EditText
             android:id="@+id/search_edittext"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen32"
             android:layout_marginTop="@dimen/dimen16"
-            android:layout_marginRight="@dimen/dimen32"
-            android:layout_marginLeft="@dimen/dimen32"
-            android:background="#FFFFFF"
+            android:layout_marginStart="@dimen/dimen32"
+            android:layout_marginEnd="@dimen/dimen8"
+            android:background="@drawable/border_edittext"
             android:maxLines="1"
+            android:paddingStart="@dimen/dimen12"
+            android:paddingEnd="@dimen/dimen12"
             android:inputType="text"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
+            tools:text = "Earth"
             />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal_scrollview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_button"
+            >
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_groupof6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip1"
+                    app:chipIconSize="@dimen/dimen12"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip2"
+                    app:chipIconSize="@dimen/dimen16"
+
+                    />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip3"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip4"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip5"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip6"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+            </com.google.android.material.chip.ChipGroup>
+
+
+
+        </HorizontalScrollView>
+
 
         <Button
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:text="SEARCH"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text"
             android:textColor="#FFFFFF"
             android:background="@drawable/button_pressed"
-            android:layout_marginRight="@dimen/dimen32"
+            android:layout_marginEnd="@dimen/dimen32"
             app:layout_constraintStart_toEndOf="@id/search_edittext"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/search_edittext"
@@ -66,15 +151,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen8"
-            app:layout_constraintStart_toStartOf="@id/search_edittext"
-            app:layout_constraintTop_toBottomOf="@id/search_edittext"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/search_edittext"
+            app:layout_constraintTop_toTopOf="@id/search_edittext"
+            app:layout_constraintBottom_toBottomOf="@id/search_edittext"
             />
 
         <TextView
             android:id="@+id/see_more_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen8"
+            android:layout_margin="@dimen/dimen16"
             android:textColor="#FF0000"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,19 +174,19 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dimen120"
-            android:layout_marginBottom="@dimen/dimen48"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/status_imageview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontal_scrollview"
+            app:layout_constraintBottom_toTopOf="@id/left_arrow_imageview"
             >
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/image_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen32"
-                />
+                android:layout_marginTop="@dimen/dimen32" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <TextView
@@ -122,9 +209,9 @@
             android:id="@+id/left_arrow_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen32"
+            android:layout_marginTop="@dimen/dimen8"
             android:layout_marginStart="@dimen/dimen120"
-            android:layout_marginBottom="@dimen/dimen32"
+            android:layout_marginBottom="@dimen/dimen8"
             android:visibility="invisible"
             android:src="@drawable/ic_arrow_back_blue_24dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -136,9 +223,9 @@
             android:id="@+id/right_arrow_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen32"
+            android:layout_marginTop="@dimen/dimen8"
             android:layout_marginEnd="@dimen/dimen120"
-            android:layout_marginBottom="@dimen/dimen32"
+            android:layout_marginBottom="@dimen/dimen8"
             android:visibility="invisible"
             android:src="@drawable/ic_arrow_forward_blue_24dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,6 @@
 package com.example.nasagery_application.view;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -12,6 +13,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.nasagery_application.R;
@@ -21,6 +23,9 @@ import com.example.nasagery_application.model.Item;
 import com.example.nasagery_application.model.Utils;
 import com.example.nasagery_application.viewmodel.NASAViewModel;
 import com.example.nasagery_application.model.Response;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+
 import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -32,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
     private EditText editText;
-    private int itemCount;
     private int pageSize = 20;
     private Utils status;
     private int page = 1;
@@ -48,6 +52,44 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setViewModel(nasaViewModel);
 
 
+        ChipGroup entryChipGroup = findViewById(R.id.chip_groupof6);
+        Chip entryChip1 = findViewById(R.id.chip1);
+        Chip entryChip2 = findViewById(R.id.chip2);
+        Chip entryChip3 = findViewById(R.id.chip3);
+        Chip entryChip4 = findViewById(R.id.chip4);
+        Chip entryChip5 = findViewById(R.id.chip5);
+        Chip entryChip6 = findViewById(R.id.chip6);
+
+        activityMainBinding.searchEdittext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activityMainBinding.horizontalScrollview.setVisibility(View.VISIBLE);
+                entryChipGroup.setVisibility(View.VISIBLE);
+                activityMainBinding.seeMoreTextview.setVisibility(View.INVISIBLE);
+                CompoundButton.OnCheckedChangeListener entryChipListener = new CompoundButton.OnCheckedChangeListener() {
+                    @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                        if(isChecked) {
+                            activityMainBinding.searchEdittext.setText(buttonView.getText());
+                            buttonView.setVisibility(View.GONE);
+                        } else {
+                            buttonView.setVisibility(View.VISIBLE);
+                        }
+
+                        Log.i("TAG_SHA", buttonView.getText().toString() + "");
+                    }
+                };
+                entryChip1.setOnCheckedChangeListener(entryChipListener);
+                entryChip2.setOnCheckedChangeListener(entryChipListener);
+                entryChip3.setOnCheckedChangeListener(entryChipListener);
+                entryChip4.setOnCheckedChangeListener(entryChipListener);
+                entryChip5.setOnCheckedChangeListener(entryChipListener);
+                entryChip6.setOnCheckedChangeListener(entryChipListener);
+
+            }
+        });
+
+
         //Check if network is up and running
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
@@ -55,13 +97,20 @@ public class MainActivity extends AppCompatActivity {
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_close_red_24dp);
         }
 
+
+
+
+
+
         //Once button is clicked, the api call is made.
         activityMainBinding.searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
                 activityMainBinding.rightArrowImageview.setVisibility(View.VISIBLE);
                 page = 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
+                entryChipGroup.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -72,12 +121,16 @@ public class MainActivity extends AppCompatActivity {
                 {
                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
                 }
+//                activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
+                entryChipGroup.setVisibility(View.GONE);
                 page -= 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
                 Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
 
             }
         });
+
+
 
         activityMainBinding.rightArrowImageview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
                     activityMainBinding.leftArrowImageview.setVisibility(View.VISIBLE);
 
                 }
+//                activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
+                entryChipGroup.setVisibility(View.INVISIBLE);
                 page += 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
                 Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
@@ -125,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                                     activityMainBinding.swipeRecyclerview.setRefreshing(false);
                                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
                                     pageSize = 20;
-//                                    imageAdapter.limit = pageSize;
+                                    imageAdapter.limit = pageSize;
 //                                    Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
                                     Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
 
@@ -150,17 +205,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     //Adapter is initialized and recycler view is filled with items once called upon and if
     //api call is success
     private void displayImages(List<Item> images) {
         Log.d("TAG_COUNT", "" + images.size());
+
         editText = findViewById(R.id.search_edittext);
         imageAdapter = new ImageAdapter(this, images);
         recyclerView = findViewById(R.id.image_recyclerview);
-        itemCount = imageAdapter.getItemCount();
-//        itemCount = pageSize;
+
 
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(true);
 
@@ -191,7 +248,6 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(imageAdapter);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(linearLayoutManager);
-
             if(images.size() < 100)
             {
                 activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
@@ -209,18 +265,18 @@ public class MainActivity extends AppCompatActivity {
                     int totalItemCount = linearLayoutManager.getItemCount();
                     int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                         if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= pageSize) {
-//                            page += 1;
-//                        pageSize += 20;
-//                        imageAdapter.getItemCount() = pageSize;
-                        recyclerView.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageAdapter.notifyDataSetChanged();
+                            if(imageAdapter.limit < 100 ) {
+                                imageAdapter.limit += 20;
+                                recyclerView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        imageAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                                Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
                             }
-                        });
-//                        Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
-                        Log.d("TAG_NUMBER", "" + pageSize);
-                        Log.d("TAG_PAGE_NUMBER", "" + page);
+//                        Log.d("TAG_NUMBER", "" + pageSize);
+//                        Log.d("TAG_PAGE_NUMBER", "" + page);
                     }
                 }
             });

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">NASA_IMAGE_APP</string>
+    <string name="app_title">NASAGERY</string>
+    <string name="button_text">SEARCH</string>
+    <string name="chip1">earth</string>
+    <string name="chip2">sun</string>
+    <string name="chip3">moon</string>
+    <string name="chip4">star</string>
+    <string name="chip5">space</string>
+    <string name="chip6">galaxy</string>
+
+
 </resources>
