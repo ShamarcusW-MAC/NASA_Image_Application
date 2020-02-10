@@ -18,40 +18,54 @@
         android:layout_height="match_parent"
         android:background="#D2000000"
         >
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Widget.MaterialComponents.TextView"
             android:id="@+id/title_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen16"
             android:text="@string/app_title"
-            android:textColor="#FF0000"
+            android:textAppearance="?attr/textAppearanceHeadline1"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             android:textStyle="italic|bold"
             android:gravity="center"
-            android:background="@drawable/title_gradient_background"
-            app:layout_constraintBottom_toTopOf="@id/search_edittext"
+            app:layout_constraintBottom_toTopOf="@id/search_InputLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/search_edittext"
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/search_InputLayout"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dimen32"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen16"
             android:layout_marginStart="@dimen/dimen32"
             android:layout_marginEnd="@dimen/dimen8"
-            android:background="@drawable/border_edittext"
             android:maxLines="1"
-            android:paddingStart="@dimen/dimen12"
-            android:paddingEnd="@dimen/dimen12"
+            android:paddingStart="@dimen/dimen16"
+            android:paddingEnd="@dimen/dimen16"
             android:inputType="text"
             android:textSize="16sp"
+            tools:text = "Earth"
+            android:textColorHint="@color/colorPrimary"
+            android:hint="Enter keyword..."
+            app:endIconMode="clear_text"
             app:layout_constraintStart_toStartOf="parent"
+            app:boxBackgroundMode="outline"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
-            tools:text = "Earth"
-            />
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <HorizontalScrollView
             android:id="@+id/horizontal_scrollview"
@@ -76,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip1"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"/>
 
                 <com.google.android.material.chip.Chip
@@ -84,6 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip2"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen16"
 
                     />
@@ -94,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip3"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
 
@@ -104,6 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip4"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
 
@@ -114,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip5"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
 
@@ -123,16 +142,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip6"
+                    app:closeIconEnabled="false"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip7"
+                    app:closeIconEnabled="false"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip8"
+                    app:closeIconEnabled="false"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip9"
+                    app:closeIconEnabled="false"
+                    app:chipIconSize="@dimen/dimen12"
+                    />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Entry"
+                    android:id="@+id/chip10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chip10"
+                    app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
             </com.google.android.material.chip.ChipGroup>
 
-
-
         </HorizontalScrollView>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,10 +194,10 @@
             android:textColor="#FFFFFF"
             android:background="@drawable/button_pressed"
             android:layout_marginEnd="@dimen/dimen32"
-            app:layout_constraintStart_toEndOf="@id/search_edittext"
+            app:layout_constraintStart_toEndOf="@id/search_InputLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/search_edittext"
-            app:layout_constraintBottom_toBottomOf="@id/search_edittext"
+            app:layout_constraintTop_toTopOf="@id/search_InputLayout"
+            app:layout_constraintBottom_toBottomOf="@id/search_InputLayout"
             />
 
         <ImageView
@@ -152,21 +206,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/search_edittext"
-            app:layout_constraintTop_toTopOf="@id/search_edittext"
-            app:layout_constraintBottom_toBottomOf="@id/search_edittext"
+            app:layout_constraintEnd_toStartOf="@id/search_InputLayout"
+            app:layout_constraintTop_toTopOf="@id/search_InputLayout"
+            app:layout_constraintBottom_toBottomOf="@id/search_InputLayout"
             />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/see_more_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen16"
-            android:textColor="#FF0000"
+            android:textColor="@color/colorPrimary"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_edittext"
+            app:layout_constraintTop_toBottomOf="@id/search_InputLayout"
             app:layout_constraintBottom_toTopOf="@id/swipe_recyclerview"
             tools:text="(Click title to see more)"
             />
@@ -189,7 +243,7 @@
                 android:layout_marginTop="@dimen/dimen32" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/noresults_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

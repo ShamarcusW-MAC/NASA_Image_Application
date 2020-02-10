@@ -1,7 +1,5 @@
 package com.example.nasagery_application.view;
 
-import androidx.annotation.IdRes;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
     private EditText editText;
-    private int pageSize = 20;
     private Utils status;
     private int page = 1;
 
@@ -51,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         nasaViewModel = ViewModelProviders.of(this).get(NASAViewModel.class);
         activityMainBinding.setViewModel(nasaViewModel);
 
-
+        //Chip group is created and ready for display once the user is ready to input
+        //a search word
         ChipGroup entryChipGroup = findViewById(R.id.chip_groupof6);
         Chip entryChip1 = findViewById(R.id.chip1);
         Chip entryChip2 = findViewById(R.id.chip2);
@@ -59,7 +57,14 @@ public class MainActivity extends AppCompatActivity {
         Chip entryChip4 = findViewById(R.id.chip4);
         Chip entryChip5 = findViewById(R.id.chip5);
         Chip entryChip6 = findViewById(R.id.chip6);
+        Chip entryChip7 = findViewById(R.id.chip7);
+        Chip entryChip8 = findViewById(R.id.chip8);
+        Chip entryChip9 = findViewById(R.id.chip9);
+        Chip entryChip10 = findViewById(R.id.chip10);
 
+
+        //Once edit text is clicked for input, the chip group appears. Once the user has
+        //clicked on a chip, that said chip will be removed.
         activityMainBinding.searchEdittext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 CompoundButton.OnCheckedChangeListener entryChipListener = new CompoundButton.OnCheckedChangeListener() {
                     @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
+                        //Once a chip is clicked
                         if(isChecked) {
                             activityMainBinding.searchEdittext.setText(buttonView.getText());
                             buttonView.setVisibility(View.GONE);
@@ -85,12 +91,17 @@ public class MainActivity extends AppCompatActivity {
                 entryChip4.setOnCheckedChangeListener(entryChipListener);
                 entryChip5.setOnCheckedChangeListener(entryChipListener);
                 entryChip6.setOnCheckedChangeListener(entryChipListener);
+                entryChip7.setOnCheckedChangeListener(entryChipListener);
+                entryChip8.setOnCheckedChangeListener(entryChipListener);
+                entryChip9.setOnCheckedChangeListener(entryChipListener);
+                entryChip10.setOnCheckedChangeListener(entryChipListener);
+
 
             }
         });
 
 
-        //Check if network is up and running
+        //Check if network is up and running, shows green check mark if it's up, red x if it's not.
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
         }else{
@@ -179,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
                                     imageAdapter.notifyDataSetChanged();
                                     activityMainBinding.swipeRecyclerview.setRefreshing(false);
                                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
-                                    pageSize = 20;
-                                    imageAdapter.limit = pageSize;
+//                                    pageSize = 20;
+//                                    imageAdapter.limit = pageSize;
 //                                    Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
                                     Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
 
@@ -214,9 +225,11 @@ public class MainActivity extends AppCompatActivity {
     private void displayImages(List<Item> images) {
         Log.d("TAG_COUNT", "" + images.size());
 
+
         editText = findViewById(R.id.search_edittext);
         imageAdapter = new ImageAdapter(this, images);
         recyclerView = findViewById(R.id.image_recyclerview);
+//        int keywordsLength = images.get(0).getData().get(0).getKeywords().size();
 
 
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(true);
@@ -254,32 +267,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 activityMainBinding.rightArrowImageview.setVisibility(View.VISIBLE);
             }
-
-            //Whenever the user reaches to the bottom of the recycler view, the number of items
-            //is increased by 20 each time.
-            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                    super.onScrolled(recyclerView, dx, dy);
-                    int visibleItemCount = linearLayoutManager.getChildCount();
-                    int totalItemCount = linearLayoutManager.getItemCount();
-                    int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
-                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= pageSize) {
-                            if(imageAdapter.limit < 100 ) {
-                                imageAdapter.limit += 20;
-                                recyclerView.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        imageAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                                Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.limit, Toast.LENGTH_SHORT).show();
-                            }
-//                        Log.d("TAG_NUMBER", "" + pageSize);
-//                        Log.d("TAG_PAGE_NUMBER", "" + page);
-                    }
-                }
-            });
 
         }
 

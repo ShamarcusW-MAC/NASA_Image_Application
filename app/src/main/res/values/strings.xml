@@ -8,6 +8,11 @@
     <string name="chip4">star</string>
     <string name="chip5">space</string>
     <string name="chip6">galaxy</string>
+    <string name="chip7">nasa</string>
+    <string name="chip8">constellation</string>
+    <string name="chip9">planet</string>
+    <string name="chip10">comet</string>
+
 
 
 </resources>
