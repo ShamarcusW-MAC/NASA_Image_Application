@@ -65,7 +65,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         });
 
-//        holder.binding.imageDescriptionTextview.setMovementMethod(new ScrollingMovementMethod());
 
         holder.bind(item);
     }
