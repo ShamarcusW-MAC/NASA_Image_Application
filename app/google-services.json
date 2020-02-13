@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "688814018357",
+    "firebase_url": "https://nasagery.firebaseio.com",
+    "project_id": "nasagery",
+    "storage_bucket": "nasagery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:688814018357:android:d81e1a2ef54f547841c67c",
+        "android_client_info": {
+          "package_name": "com.example.nasagery_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "688814018357-m41em4h8qlrq5sftqpr2c54haodrffmj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nasagery_application",
+            "certificate_hash": "fd5a6d99b7434014e29ba62a4a3dec45796ad31d"
+          }
+        },
+        {
+          "client_id": "688814018357-utujv1j3m6kl4emknhuhislc6gt3c0d9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcOMGdUkEaUG7WkN6_q6dxJrHnu2iY_vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "688814018357-utujv1j3m6kl4emknhuhislc6gt3c0d9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

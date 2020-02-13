@@ -1,16 +1,71 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.Shrine" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.NASA" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Widget.Shrine.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">?attr/colorPrimary</item>
+
+    <style name="TextAppearance.NASA.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:letterSpacing">0.5</item>
+        <item name="android:layout_marginTop">@dimen/dimen16</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:shadowColor">@color/colorWhite</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.3</item>
+        <item name="android:shadowRadius">1.6</item>
+        <item name="fontFamily">@font/calistoga_regular</item>
+    </style>
+
+    <style name="TextAppearance.NASA.HeadlineText2" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">@font/frederickathegreat_regular</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_margin">@dimen/dimen8</item>
 
     </style>
+
+
+    <style name="TextAppearance.NASA.HeadlineText3" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="fontFamily">@font/josefinslab_italic</item>
+        <item name="android:layout_marginTop">@dimen/dimen8</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+
+    </style>
+
+    <style name="TextAppearance.NASA.HeadlineText4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="fontFamily">@font/josefinslab_italic</item>
+        <item name="android:layout_marginTop">@dimen/dimen8</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+
+    <style name="TextAppearance.NASA.BodyText1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/josefinslab_italic</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:layout_margin">@dimen/dimen8</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
 
 </resources>

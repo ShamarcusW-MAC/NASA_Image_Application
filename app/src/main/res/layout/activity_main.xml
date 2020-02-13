@@ -19,17 +19,11 @@
         android:background="#D2000000"
         >
         <com.google.android.material.textview.MaterialTextView
-            style="@style/Widget.MaterialComponents.TextView"
+            style="@style/TextAppearance.NASA.Headline1"
             android:id="@+id/title_textview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen16"
             android:text="@string/app_title"
-            android:textAppearance="?attr/textAppearanceHeadline1"
-            android:textColor="@color/colorPrimary"
-            android:textSize="24sp"
-            android:textStyle="italic|bold"
-            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/search_InputLayout"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -44,16 +38,18 @@
             android:layout_marginTop="@dimen/dimen16"
             android:layout_marginStart="@dimen/dimen32"
             android:layout_marginEnd="@dimen/dimen8"
-            android:maxLines="1"
             android:paddingStart="@dimen/dimen16"
             android:paddingEnd="@dimen/dimen16"
             android:inputType="text"
             android:textSize="16sp"
-            tools:text = "Earth"
             android:textColorHint="@color/colorPrimary"
-            android:hint="Enter keyword..."
+            android:hint="@string/keyword_input"
             app:endIconMode="clear_text"
             app:layout_constraintStart_toStartOf="parent"
+            app:boxCornerRadiusBottomEnd="@dimen/dimen24"
+            app:boxCornerRadiusBottomStart="@dimen/dimen24"
+            app:boxCornerRadiusTopEnd="@dimen/dimen24"
+            app:boxCornerRadiusTopStart="@dimen/dimen24"
             app:boxBackgroundMode="outline"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
@@ -62,6 +58,8 @@
                 android:id="@+id/search_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/colorWhite"
+                android:maxLines="1"
                 />
 
 
@@ -82,7 +80,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                app:singleSelection="true">
+                app:singleSelection="true"
+                >
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.MaterialComponents.Chip.Entry"
@@ -90,6 +89,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip1"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"/>
 
@@ -99,9 +102,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip2"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen16"
-
                     />
 
                 <com.google.android.material.chip.Chip
@@ -109,7 +115,11 @@
                     android:id="@+id/chip3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     android:text="@string/chip3"
+                    android:textColor="@color/colorWhite"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -120,7 +130,11 @@
                     android:id="@+id/chip4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     android:text="@string/chip4"
+                    android:textColor="@color/colorWhite"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -132,6 +146,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip5"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -141,7 +159,11 @@
                     android:id="@+id/chip6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
                     android:text="@string/chip6"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -151,6 +173,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip7"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -160,6 +186,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip8"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -168,7 +198,11 @@
                     android:id="@+id/chip9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
                     android:text="@string/chip9"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -178,6 +212,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/chip10"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
                     app:closeIconEnabled="false"
                     app:chipIconSize="@dimen/dimen12"
                     />
@@ -191,8 +229,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button_text"
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_pressed"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/calistoga_regular"
             android:layout_marginEnd="@dimen/dimen32"
             app:layout_constraintStart_toEndOf="@id/search_InputLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -204,7 +242,7 @@
             android:id="@+id/status_imageview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen8"
+            android:layout_marginLeft="@dimen/dimen8"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_InputLayout"
             app:layout_constraintTop_toTopOf="@id/search_InputLayout"
@@ -240,7 +278,9 @@
                 android:id="@+id/image_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen32" />
+                android:layout_marginTop="@dimen/dimen32"
+                android:background="@color/colorPrimaryDark"
+                />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -266,8 +306,9 @@
             android:layout_marginTop="@dimen/dimen8"
             android:layout_marginStart="@dimen/dimen120"
             android:layout_marginBottom="@dimen/dimen8"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
-            android:src="@drawable/ic_arrow_back_blue_24dp"
+            android:src="@drawable/ic_arrow_back_darkred_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/swipe_recyclerview"
@@ -280,8 +321,9 @@
             android:layout_marginTop="@dimen/dimen8"
             android:layout_marginEnd="@dimen/dimen120"
             android:layout_marginBottom="@dimen/dimen8"
+            android:background="@color/colorPrimary"
             android:visibility="invisible"
-            android:src="@drawable/ic_arrow_forward_blue_24dp"
+            android:src="@drawable/ic_arrow_forward_darkred_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/swipe_recyclerview"

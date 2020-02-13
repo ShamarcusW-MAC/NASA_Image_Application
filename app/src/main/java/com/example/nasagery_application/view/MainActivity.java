@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -122,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
                 page = 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
                 entryChipGroup.setVisibility(View.INVISIBLE);
+                InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if(null != MainActivity.this.getCurrentFocus())
+                {
+                    imm.hideSoftInputFromWindow(MainActivity.this.getCurrentFocus().getApplicationWindowToken(), 0);
+                }
             }
         });
 
@@ -133,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
                 }
 //                activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
-                entryChipGroup.setVisibility(View.GONE);
+                entryChipGroup.setVisibility(View.INVISIBLE);
                 page -= 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
                 Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
@@ -207,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             }, throwable -> {
-                            Log.d("TAG_ERROR", throwable.getMessage());
+                            Log.d("TAG_ERROR_MAIN", throwable.getMessage());
                         }
 
                         )

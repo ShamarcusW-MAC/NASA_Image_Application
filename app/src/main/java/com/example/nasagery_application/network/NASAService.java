@@ -11,6 +11,6 @@ public interface NASAService {
     Observable<Image> getImage(@Query("q")String keyword,
                                @Query("page")int page);
 
-
-    //https://images-api.nasa.gov/search?media_type=image&q=earth&page=1
 }
+
+//https://images-api.nasa.gov/search?media_type=image&q

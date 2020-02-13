@@ -57,7 +57,7 @@ public class MainActivityTest {
         onView(withId(R.id.image_recyclerview))
                 .inRoot(RootMatchers.withDecorView(
                 Matchers.is(rule.getActivity().getWindow().getDecorView())))
-                .perform(RecyclerViewActions.scrollToPosition(19));
+                .perform(RecyclerViewActions.scrollToPosition(99));
     }
     @After
     public void tearDown() throws Exception {

@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen8"
+        android:animateLayoutChanges="true"
         app:cardBackgroundColor="?attr/colorPrimary"
         app:cardUseCompatPadding="true"
         app:cardElevation="@dimen/dimen8"
@@ -34,17 +35,13 @@
             android:layout_height="wrap_content"
             >
 
+
             <TextView
+                style="@style/TextAppearance.NASA.HeadlineText2"
                 android:id="@+id/imagetitle_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
-                android:textStyle="bold|italic"
                 android:text="@{`Title: ` + data.title}"
-                android:layout_margin="@dimen/dimen8"
-                android:textAlignment="center"
-                android:textAppearance="?attr/textAppearanceHeadline2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -53,17 +50,13 @@
 
 
 
+
             <TextView
+                style="@style/TextAppearance.NASA.HeadlineText3"
                 android:id="@+id/image_author_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen8"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                android:textStyle="bold"
                 android:text="@{`Creator: ` + data.secondaryCreator}"
-                android:textAppearance="?attr/textAppearanceHeadline3"
-                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imagetitle_textview"
@@ -72,15 +65,12 @@
                 />
 
             <TextView
+                style="@style/TextAppearance.NASA.HeadlineText4"
                 android:id="@+id/image_date_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen8"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp"
-                android:textStyle="bold"
                 android:text="@{`Date/Time: ` + data.dateCreated}"
-                android:textAppearance="?attr/textAppearanceHeadline4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_author_textview"
@@ -102,17 +92,10 @@
                 />
 
             <TextView
+                style="@style/TextAppearance.NASA.BodyText1"
                 android:id="@+id/image_description_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dimen8"
-                android:maxHeight="100dp"
-                android:gravity="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:scrollbars="vertical"
-                android:textAppearance="?attr/textAppearanceBody1"
                 android:text="@{`Description: ` + data.description}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -123,6 +106,7 @@
                 android:id="@+id/item_horizontal_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_description_textview"
@@ -130,10 +114,40 @@
                 <com.google.android.material.chip.ChipGroup
                     android:id="@+id/item_ChipGroup"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorWhite"
+                    app:chipStrokeColor="@color/colorPrimaryDark"
+                    app:chipBackgroundColor="@color/colorPrimary"
+                    app:chipStrokeWidth="4dp"
+                    >
                 </com.google.android.material.chip.ChipGroup>
 
             </HorizontalScrollView>
+
+            <TextView
+                style="@style/TextAppearance.NASA.BodyText1"
+                android:id="@+id/image_label_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                />
+
+            <TextView
+                style="@style/TextAppearance.NASA.BodyText1"
+                android:id="@+id/text_results_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_label_textview"
+                />
 
 
 
