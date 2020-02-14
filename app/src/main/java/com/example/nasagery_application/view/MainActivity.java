@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -252,6 +251,8 @@ public class MainActivity extends AppCompatActivity {
             activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
             activityMainBinding.noresultsTextview.setText("No Results.");
             activityMainBinding.noresultsTextview.setVisibility(View.VISIBLE);
+            activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
+            activityMainBinding.rightArrowImageview.setVisibility(View.INVISIBLE);
 
         } else if (editText.getText().toString().isEmpty()) {
             recyclerView.setVisibility(View.GONE);

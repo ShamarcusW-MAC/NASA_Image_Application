@@ -38,14 +38,40 @@
 
             <TextView
                 style="@style/TextAppearance.NASA.HeadlineText2"
-                android:id="@+id/imagetitle_textview"
-                android:layout_width="wrap_content"
+                android:id="@+id/title_label_textview"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{`Title: ` + data.title}"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imagetitle_textview"
+                app:layout_constraintBottom_toBottomOf="@id/imagetitle_textview"
+                app:layout_constraintTop_toTopOf="@id/imagetitle_textview"
+
+                />
+
+
+            <TextView
+                style="@style/TextAppearance.NASA.HeadlineText3"
+                android:id="@+id/imagetitle_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{data.title}"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/title_label_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="NASA Earth Day 2019 Post of International Proportions"
+                />
+
+            <TextView
+                style="@style/TextAppearance.NASA.HeadlineText2"
+                android:id="@+id/author_label_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/image_author_textview"
+                app:layout_constraintBottom_toBottomOf="@id/image_author_textview"
+                app:layout_constraintTop_toTopOf="@id/image_author_textview"
+
                 />
 
 
@@ -54,24 +80,37 @@
             <TextView
                 style="@style/TextAppearance.NASA.HeadlineText3"
                 android:id="@+id/image_author_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{`Creator: ` + data.secondaryCreator}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{data.secondaryCreator}"
+                app:layout_constraintStart_toEndOf="@+id/author_label_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imagetitle_textview"
                 tools:text="ShaMarcus Walker"
 
                 />
 
+
             <TextView
-                style="@style/TextAppearance.NASA.HeadlineText4"
+                style="@style/TextAppearance.NASA.HeadlineText2"
+                android:id="@+id/date_label_textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imagetitle_textview"
+                app:layout_constraintBottom_toBottomOf="@id/image_date_textview"
+                app:layout_constraintTop_toTopOf="@id/image_date_textview"
+
+                />
+
+            <TextView
+                style="@style/TextAppearance.NASA.HeadlineText3"
                 android:id="@+id/image_date_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen8"
-                android:text="@{`Date/Time: ` + data.dateCreated}"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{data.dateCreated}"
+                app:layout_constraintStart_toEndOf="@id/date_label_textview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_author_textview"
                 app:layout_constraintBottom_toTopOf="@id/nasaimage_imageview"
@@ -82,6 +121,8 @@
                 android:id="@+id/nasaimage_imageview"
                 android:layout_width="@dimen/dimen300"
                 android:layout_height="@dimen/dimen300"
+                android:minHeight="@dimen/dimem100"
+                android:maxHeight="@dimen/dimem100"
                 android:layout_marginTop="@dimen/dimen8"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
@@ -91,16 +132,97 @@
                 app:layout_constraintBottom_toTopOf="@id/image_description_textview"
                 />
 
+
+<!--            <TextView-->
+<!--                style="@style/TextAppearance.NASA.HeadlineText2"-->
+<!--                android:id="@+id/imagetext_label_textview"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Image Text : "-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@id/image_text_layout"-->
+<!--                app:layout_constraintTop_toTopOf="@id/image_text_layout"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/image_text_layout"-->
+<!--                />-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/image_text_layout"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/nasaimage_imageview"-->
+<!--                app:layout_constraintBottom_toTopOf="@id/image_description_textview"-->
+<!--                />-->
+
             <TextView
-                style="@style/TextAppearance.NASA.BodyText1"
+                android:id="@+id/description_label_textview"
+                style="@style/TextAppearance.NASA.HeadlineText2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/image_description_textview"
+                app:layout_constraintEnd_toStartOf="@id/image_description_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/image_description_textview"
+
+                />
+
+            <TextView
                 android:id="@+id/image_description_textview"
+                style="@style/TextAppearance.NASA.BodyText1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{data.description}"
+                android:background="@drawable/textview_border"
+                app:layout_constraintBottom_toTopOf="@id/image_label_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/description_label_textview"
+                app:layout_constraintTop_toBottomOf="@id/nasaimage_imageview" />
+
+
+
+            <!--            <TextView-->
+<!--                style="@style/TextAppearance.NASA.BodyText1"-->
+<!--                android:id="@+id/image_label_textview"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:gravity="center"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+
+<!--                />-->
+
+            <TextView
+                style="@style/TextAppearance.NASA.HeadlineText2"
+                android:id="@+id/labels_label_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{`Description: ` + data.description}"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nasaimage_imageview"
+                android:text = "Labels: "
+                app:layout_constraintStart_toStartOf="@id/description_label_textview"
+                app:layout_constraintTop_toTopOf="@+id/image_label_layout"
+                app:layout_constraintBottom_toBottomOf="@id/image_label_layout"
                 />
+
+
+            <LinearLayout
+                android:id="@+id/image_label_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen8"
+                android:orientation="vertical"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="@id/image_description_textview"
+                app:layout_constraintBottom_toTopOf="@id/item_horizontal_scrollview"
+                app:layout_constraintTop_toBottomOf="@id/image_description_textview"
+                >
+
+            </LinearLayout>
+
+
+
 
             <HorizontalScrollView
                 android:id="@+id/item_horizontal_scrollview"
@@ -109,9 +231,10 @@
                 android:layout_marginTop="@dimen/dimen4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_description_textview"
+                app:layout_constraintTop_toBottomOf="@id/image_label_layout"
                 >
                 <com.google.android.material.chip.ChipGroup
+                    style="@style/TextAppearance.NASA.HeadlineText3"
                     android:id="@+id/item_ChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,31 +246,6 @@
                 </com.google.android.material.chip.ChipGroup>
 
             </HorizontalScrollView>
-
-            <TextView
-                style="@style/TextAppearance.NASA.BodyText1"
-                android:id="@+id/image_label_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                />
-
-            <TextView
-                style="@style/TextAppearance.NASA.BodyText1"
-                android:id="@+id/text_results_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_label_textview"
-                />
 
 
 

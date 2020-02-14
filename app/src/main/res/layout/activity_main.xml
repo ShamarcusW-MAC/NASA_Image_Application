@@ -45,12 +45,12 @@
             android:textColorHint="@color/colorPrimary"
             android:hint="@string/keyword_input"
             app:endIconMode="clear_text"
-            app:layout_constraintStart_toStartOf="parent"
             app:boxCornerRadiusBottomEnd="@dimen/dimen24"
             app:boxCornerRadiusBottomStart="@dimen/dimen24"
             app:boxCornerRadiusTopEnd="@dimen/dimen24"
             app:boxCornerRadiusTopStart="@dimen/dimen24"
             app:boxBackgroundMode="outline"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/search_button"
             app:layout_constraintTop_toBottomOf="@id/title_textview"
             >

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.method.ScrollingMovementMethod;
@@ -15,10 +17,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -37,6 +41,7 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
+import com.google.firebase.ml.vision.text.RecognizedLanguage;
 
 import java.io.IOException;
 import java.util.List;
@@ -80,8 +85,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 //            chip.setChipStrokeWidth((float) 2.0);
 
             holder.binding.itemCardview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
-            holder.binding.nasaimageImageview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
+//            holder.binding.nasaimageImageview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
+            holder.binding.imagetitleTextview.setEnabled(false);
             notifyItemChanged(position);
+            holder.binding.imagetitleTextview.setEnabled(true);
+
         });
         holder.bind(item);
     }
@@ -121,11 +129,23 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             }
 
 
+
             boolean expanded = item.isNotExpand();
+            binding.titleLabelTextview.setText("Title : ");
+            binding.authorLabelTextview.setText("Author : ");
+            binding.dateLabelTextview.setText("Date/Time: ");
+            binding.descriptionLabelTextview.setText("Description: ");
+            binding.descriptionLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            binding.authorLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            binding.dateLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+//            binding.imageTextLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageAuthorTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDateTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.itemHorizontalScrollview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            binding.labelsLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            binding.imageLabelLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
+//            binding.textResultsTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setMovementMethod(new ScrollingMovementMethod());
             binding.itemCardview.setStrokeColor(expanded ? Color.WHITE : 0);
             binding.itemCardview.setStrokeWidth(expanded ? 2 : 0);
@@ -202,8 +222,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 //                 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
 //                     .getOnDeviceImageLabeler(options);
 
-
-
+                binding.imageLabelLayout.removeAllViews();
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(0,4,0,4);
                 labeler.processImage(image)
                         .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
                             @Override
@@ -214,9 +235,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                     String entityId = label.getEntityId();
                                     float confidence = label.getConfidence();
 
-                                        binding.imageLabelTextview.setText(text + " : " + (int) (confidence * 100) + "%");
-//
-//                                    }
+
+                                    TextView labelTextView = new TextView(itemView.getContext());
+                                    labelTextView.setText(text + " : " + (int) (confidence * 100) + "%");
+                                    labelTextView.setLayoutParams(params);
+                                    labelTextView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.textview_border));
+//                                    labelTextView.setBackgroundColor(Color.WHITE);
+                                    labelTextView.setTextColor(Color.parseColor("#420101"));
+                                    binding.imageLabelLayout.addView(labelTextView);
+
+                                    if(labelTextView.getText().toString() == "")
+                                    {
+                                        binding.labelsLabelTextview.setVisibility(View.GONE);
+                                    }
+
 
                                     Log.d("TAG_TEXT", text);
                                     Log.d("TAG_ID", entityId);
@@ -236,21 +268,87 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                         });
 
 
-                Task<FirebaseVisionText> result =
-                        detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-                            @Override
-                            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-
-
-
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
-                            }
-                        });
+//                Task<FirebaseVisionText> result =
+//                        detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
+//                            @Override
+//                            public void onSuccess(FirebaseVisionText firebaseVisionText) {
+//
+//                                for(FirebaseVisionText.TextBlock textBlock : firebaseVisionText.getTextBlocks())
+//                                {
+//                                    Rect boundingBox = textBlock.getBoundingBox();
+//                                    Point[] cornerPoints = textBlock.getCornerPoints();
+//                                    String resultText = textBlock.getText();
+//                                    Log.d("TAG_BOUND", boundingBox + "");
+//                                    Log.d("TAG_CORNER", cornerPoints + "");
+//                                    Log.d("TAG_RESULT", resultText);
+//
+//
+//                    String blockText = textBlock.getText();
+//                    Float blockConfidence = textBlock.getConfidence();
+//                    List<RecognizedLanguage> blockLanguages = textBlock.getRecognizedLanguages();
+//                    Point[] blockCornerPoints = textBlock.getCornerPoints();
+//                    Rect blockFrame = textBlock.getBoundingBox();
+//                    for (FirebaseVisionText.Line line: textBlock.getLines()) {
+//                        String lineText = line.getText();
+//                        Float lineConfidence = line.getConfidence();
+//                        List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
+//                        Point[] lineCornerPoints = line.getCornerPoints();
+//                        Rect lineFrame = line.getBoundingBox();
+//                        for (FirebaseVisionText.Element element: line.getElements()) {
+//                            String elementText = element.getText();
+//                            Float elementConfidence = element.getConfidence();
+//                            List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
+//                            Point[] elementCornerPoints = element.getCornerPoints();
+//                            Rect elementFrame = element.getBoundingBox();
+//
+//                            //                                    binding.textResultsTextview.setText(resultText);
+//                                    if(lineText == null)
+//                                    {
+//                                        binding.imageTextLayout.setVisibility(View.GONE);
+//
+//                                    }
+//                                    else {
+////                                        binding.textResultsTextview.setText(resultText);
+//                                        TextView textTextView = new TextView(itemView.getContext());
+//                                        textTextView.setText(lineText);
+//                                        textTextView.setTextColor(Color.parseColor("#420101"));
+//                                        binding.imageTextLayout.addView(textTextView);
+//                                    }
+//                        }
+//                    }
+//                                }
+//
+//                            }
+//                        })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//
+//                            }
+//                        });
+//---------------------------------_---------------___---_---_-----------_-_-_------
+//                String resultText = result.toString();
+//                for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
+//                    String blockText = block.getText();
+//                    Float blockConfidence = block.getConfidence();
+//                    List<RecognizedLanguage> blockLanguages = block.getRecognizedLanguages();
+//                    Point[] blockCornerPoints = block.getCornerPoints();
+//                    Rect blockFrame = block.getBoundingBox();
+//                    for (FirebaseVisionText.Line line: block.getLines()) {
+//                        String lineText = line.getText();
+//                        Float lineConfidence = line.getConfidence();
+//                        List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
+//                        Point[] lineCornerPoints = line.getCornerPoints();
+//                        Rect lineFrame = line.getBoundingBox();
+//                        for (FirebaseVisionText.Element element: line.getElements()) {
+//                            String elementText = element.getText();
+//                            Float elementConfidence = element.getConfidence();
+//                            List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
+//                            Point[] elementCornerPoints = element.getCornerPoints();
+//                            Rect elementFrame = element.getBoundingBox();
+//                        }
+//                    }
+//                }
 
             }catch (Exception e) {
 
