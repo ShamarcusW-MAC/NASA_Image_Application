@@ -12,6 +12,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -50,7 +52,68 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setViewModel(nasaViewModel);
 
 
-//        activityMainBinding.imageRecyclerview.getItemAnimator().setChangeDuration(0);
+        Animation slideRight = AnimationUtils.loadAnimation(this, R.anim.slide_right);
+        Animation slideBackLeft = AnimationUtils.loadAnimation(this, R.anim.slide_left_back);
+        Animation slideBackRight = AnimationUtils.loadAnimation(this, R.anim.slide_back_right);
+        Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
+
+
+
+        activityMainBinding.titleTextview.startAnimation(slideRight);
+        slideRight.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                activityMainBinding.titleTextview.startAnimation(slideBackLeft);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        slideBackLeft.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                activityMainBinding.titleTextview.startAnimation(slideBackRight);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        slideBackRight.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                activityMainBinding.titleTextview.startAnimation(rotate);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
 
         //Chip group is created and ready for display once the user is ready to input
         //a search word

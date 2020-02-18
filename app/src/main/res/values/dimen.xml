@@ -8,7 +8,7 @@
     <dimen name="dimen24">24dp</dimen>
     <dimen name="dimen32">32dp</dimen>
     <dimen name="dimen48">48dp</dimen>
-    <dimen name="dimem100">100dp</dimen>
+    <dimen name="dimen100">100dp</dimen>
     <dimen name="dimen120">120dp</dimen>
     <dimen name="dimen200">200dp</dimen>
     <dimen name="dimen300">300dp</dimen>

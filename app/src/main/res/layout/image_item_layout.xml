@@ -121,8 +121,8 @@
                 android:id="@+id/nasaimage_imageview"
                 android:layout_width="@dimen/dimen300"
                 android:layout_height="@dimen/dimen300"
-                android:minHeight="@dimen/dimem100"
-                android:maxHeight="@dimen/dimem100"
+                android:minHeight="@dimen/dimen100"
+                android:maxHeight="@dimen/dimen100"
                 android:layout_marginTop="@dimen/dimen8"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
@@ -149,6 +149,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/textview_border"
+                android:padding="@dimen/dimen4"
                 android:text="@{data.description}"
                 app:layout_constraintBottom_toTopOf="@id/image_label_layout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -162,8 +163,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Labels: "
-
                 app:layout_constraintStart_toStartOf="@+id/description_label_textview"
                 app:layout_constraintTop_toTopOf="@id/image_label_layout"
 
@@ -187,12 +186,46 @@
 
 
 
+<!--            <ImageButton-->
+<!--                android:id="@+id/left_scroll_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/colorPrimary"-->
+<!--                android:padding="@dimen/dimen8"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                />-->
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/right_scroll_button"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@color/colorPrimary"-->
+<!--                android:padding="@dimen/dimen8"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                />-->
+
+            <TextView
+                style="@style/TextAppearance.NASA.BodyText1"
+                android:id="@+id/tell_scroll_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scroll to view keywords..."
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/item_horizontal_scrollview"
+                app:layout_constraintTop_toBottomOf="@id/image_label_layout"
+                />
+
+
             <HorizontalScrollView
                 android:id="@+id/item_horizontal_scrollview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen4"
-                android:layout_marginBottom="@dimen/dimen8"
+                android:layout_margin="@dimen/dimen8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_label_layout"

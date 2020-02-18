@@ -36,7 +36,6 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
-import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
 import java.util.List;
 
 import static android.view.View.INVISIBLE;
@@ -78,12 +77,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
             item.setExpand(!expanded);
 
-            if(expanded == false) {
+            if(!expanded) {
                 holder.binding.nasaimageImageview.startAnimation(animDown);
             }
-
-            if(expanded == true)
-            {
+            else {
                 holder.binding.nasaimageImageview.startAnimation(animUp);
             }
             holder.binding.itemCardview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
@@ -91,6 +88,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             holder.binding.imagetitleTextview.setEnabled(false);
             notifyItemChanged(position);
             holder.binding.imagetitleTextview.setEnabled(true);
+
 
         });
         holder.bind(item);
@@ -109,6 +107,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         ImageView nasaImageView;
         ImageItemLayoutBinding binding;
         FirebaseVisionImage image;
+        Animation fade = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.fade);
 
 
         private ImageViewHolder(ImageItemLayoutBinding binding)
@@ -134,6 +133,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             }
 
 
+//            binding.leftScrollButton.setImageResource(R.drawable.ic_chevron_left_dark_red_24dp);
+//            binding.leftScrollButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    binding.itemHorizontalScrollview.arrowScroll(HorizontalScrollView.FOCUS_LEFT);
+//                }
+//            });
+//            binding.rightScrollButton.setImageResource(R.drawable.ic_chevron_right_dark_red_24dp);
+//            binding.rightScrollButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    binding.itemHorizontalScrollview.arrowScroll(HorizontalScrollView.FOCUS_RIGHT);
+//                }
+//            });
+
             //Here are the views in which are visible depending on the boolean variable.
             //These view turn visible if the boolean is set to true, gone if set to false.
             boolean expanded = item.isNotExpand();
@@ -141,6 +155,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             binding.authorLabelTextview.setText("Author : ");
             binding.dateLabelTextview.setText("Date/Time: ");
             binding.descriptionLabelTextview.setText("Description: ");
+            binding.labelsLabelTextview.setText("Labels: ");
             binding.descriptionLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.authorLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.dateLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
@@ -148,11 +163,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             binding.imageAuthorTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDateTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.itemHorizontalScrollview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+            binding.tellScrollTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
+//            binding.leftScrollButton.setVisibility(expanded ? View.VISIBLE : View.GONE);
+//            binding.rightScrollButton.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.labelsLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageLabelLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setMovementMethod(new ScrollingMovementMethod());
             binding.itemCardview.setStrokeColor(expanded ? Color.WHITE : 0);
             binding.itemCardview.setStrokeWidth(expanded ? 2 : 0);
+            binding.tellScrollTextview.startAnimation(fade);
 
 
             //Card view will not scroll once the description view is touched upon.
@@ -171,6 +190,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                     .load(item.getLinks().get(0).getHref())
                 .into(nasaImageView);
 
+            //Here is where the chips are generated. Each chip contains a key word of each image.
             binding.itemChipGroup.removeAllViews();
             if(binding.getData().getKeywords() != null) {
                 for (int i = 0; i < binding.getData().getKeywords().size(); i++) {
@@ -208,7 +228,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                         .getOnDeviceImageLabeler();
 
 
-                FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
+//                FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
 //                 Or, to set the minimum confidence required:
 //                 FirebaseVisionOnDeviceImageLabelerOptions options =
@@ -217,6 +237,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 //                         .build();
 //                 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
 //                     .getOnDeviceImageLabeler(options);
+
 
                 binding.imageLabelLayout.removeAllViews();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -230,14 +251,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                     String text = label.getText();
                                     String entityId = label.getEntityId();
                                     float confidence = label.getConfidence();
-
-
                                     TextView labelTextView = new TextView(itemView.getContext());
                                     labelTextView.setText(text + " : " + (int) (confidence * 100) + "%");
                                     labelTextView.setLayoutParams(params);
                                     labelTextView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.textview_border));
                                     labelTextView.setPadding(10,10,10,10);
-//                                    labelTextView.setBackgroundColor(Color.WHITE);
                                     labelTextView.setTextColor(Color.parseColor("#420101"));
                                     binding.imageLabelLayout.addView(labelTextView);
                                     binding.imageLabelLayout.invalidate();
