@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dimen8"
         android:animateLayoutChanges="true"
-        app:cardBackgroundColor="?attr/colorPrimary"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardUseCompatPadding="true"
         app:cardElevation="@dimen/dimen8"
         app:cardCornerRadius="@dimen/dimen16"
@@ -133,77 +133,40 @@
                 />
 
 
-<!--            <TextView-->
-<!--                style="@style/TextAppearance.NASA.HeadlineText2"-->
-<!--                android:id="@+id/imagetext_label_textview"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Image Text : "-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toStartOf="@id/image_text_layout"-->
-<!--                app:layout_constraintTop_toTopOf="@id/image_text_layout"-->
-<!--                app:layout_constraintBottom_toBottomOf="@id/image_text_layout"-->
-<!--                />-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/image_text_layout"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="vertical"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/nasaimage_imageview"-->
-<!--                app:layout_constraintBottom_toTopOf="@id/image_description_textview"-->
-<!--                />-->
-
             <TextView
                 android:id="@+id/description_label_textview"
                 style="@style/TextAppearance.NASA.HeadlineText2"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 app:layout_constraintBottom_toBottomOf="@id/image_description_textview"
-                app:layout_constraintEnd_toStartOf="@id/image_description_textview"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/image_description_textview"
-
-                />
+                app:layout_constraintTop_toTopOf="@id/image_description_textview" />
 
             <TextView
                 android:id="@+id/image_description_textview"
                 style="@style/TextAppearance.NASA.BodyText1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{data.description}"
                 android:background="@drawable/textview_border"
+                android:text="@{data.description}"
                 app:layout_constraintBottom_toTopOf="@id/image_label_layout"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/description_label_textview"
+                app:layout_constraintStart_toEndOf="@+id/description_label_textview"
                 app:layout_constraintTop_toBottomOf="@id/nasaimage_imageview" />
 
 
-
-            <!--            <TextView-->
-<!--                style="@style/TextAppearance.NASA.BodyText1"-->
-<!--                android:id="@+id/image_label_textview"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-
-<!--                />-->
-
             <TextView
-                style="@style/TextAppearance.NASA.HeadlineText2"
                 android:id="@+id/labels_label_textview"
-                android:layout_width="wrap_content"
+                style="@style/TextAppearance.NASA.HeadlineText2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text = "Labels: "
-                app:layout_constraintStart_toStartOf="@id/description_label_textview"
-                app:layout_constraintTop_toTopOf="@+id/image_label_layout"
-                app:layout_constraintBottom_toBottomOf="@id/image_label_layout"
+                android:layout_marginTop="8dp"
+                android:text="Labels: "
+
+                app:layout_constraintStart_toStartOf="@+id/description_label_textview"
+                app:layout_constraintTop_toTopOf="@id/image_label_layout"
+
                 />
 
 
@@ -229,9 +192,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen4"
+                android:layout_marginBottom="@dimen/dimen8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_label_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
                 >
                 <com.google.android.material.chip.ChipGroup
                     style="@style/TextAppearance.NASA.HeadlineText3"

@@ -7,6 +7,7 @@
         android:startColor="@color/colorPrimary"
         android:centerColor="@color/colorPrimaryDark"
         android:endColor="@color/colorPrimary"
+        android:angle="90"
 
         />
 </shape>

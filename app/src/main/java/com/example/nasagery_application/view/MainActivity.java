@@ -25,7 +25,6 @@ import com.example.nasagery_application.viewmodel.NASAViewModel;
 import com.example.nasagery_application.model.Response;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-
 import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -49,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         nasaViewModel = ViewModelProviders.of(this).get(NASAViewModel.class);
         activityMainBinding.setViewModel(nasaViewModel);
+
+
+//        activityMainBinding.imageRecyclerview.getItemAnimator().setChangeDuration(0);
 
         //Chip group is created and ready for display once the user is ready to input
         //a search word

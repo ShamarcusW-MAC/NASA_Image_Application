@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.method.ScrollingMovementMethod;
@@ -16,10 +14,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -32,19 +31,15 @@ import com.example.nasagery_application.databinding.ImageItemLayoutBinding;
 import com.example.nasagery_application.model.Item;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
-import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceImageLabelerOptions;
-import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-import com.google.firebase.ml.vision.text.RecognizedLanguage;
-
-import java.io.IOException;
 import java.util.List;
+
+import static android.view.View.INVISIBLE;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
@@ -73,17 +68,24 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
 
         Item item = itemList.get(position);
-//        Animation animRotate = AnimationUtils.loadAnimation(this.context, R.anim.rotate);
 
         boolean expanded = item.isNotExpand();
+        Animation animUp = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_up);
+        Animation animDown = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_down);
+
         holder.binding.imagetitleTextview.setOnClickListener(v -> {
-//            Log.d("TAG_EXPAND", expanded + "");
+            Log.d("TAG_EXPAND", expanded + "");
+
             item.setExpand(!expanded);
 
-//            holder.binding.itemCardview.startAnimation(animRotate);
-//            chip.setChipStrokeColor(ColorStateList.valueOf(Color.WHITE));
-//            chip.setChipStrokeWidth((float) 2.0);
+            if(expanded == false) {
+                holder.binding.nasaimageImageview.startAnimation(animDown);
+            }
 
+            if(expanded == true)
+            {
+                holder.binding.nasaimageImageview.startAnimation(animUp);
+            }
             holder.binding.itemCardview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
 //            holder.binding.nasaimageImageview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
             holder.binding.imagetitleTextview.setEnabled(false);
@@ -123,13 +125,17 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             binding.setLink(item.getLinks().get(0));
 
 
+//            binding.itemCardview.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.title_gradient_background));
+//            binding.itemCardview.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext()));
+
             if(binding.getData().getSecondaryCreator() == null)
             {
                 binding.getData().setSecondaryCreator("Unknown");
             }
 
 
-
+            //Here are the views in which are visible depending on the boolean variable.
+            //These view turn visible if the boolean is set to true, gone if set to false.
             boolean expanded = item.isNotExpand();
             binding.titleLabelTextview.setText("Title : ");
             binding.authorLabelTextview.setText("Author : ");
@@ -138,19 +144,18 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             binding.descriptionLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.authorLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.dateLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
-//            binding.imageTextLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageAuthorTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDateTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.itemHorizontalScrollview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.labelsLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageLabelLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
-//            binding.textResultsTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setMovementMethod(new ScrollingMovementMethod());
             binding.itemCardview.setStrokeColor(expanded ? Color.WHITE : 0);
             binding.itemCardview.setStrokeWidth(expanded ? 2 : 0);
 
 
+            //Card view will not scroll once the description view is touched upon.
             binding.imageDescriptionTextview.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -160,7 +165,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             });
 
 
-
+            //Each image is loaded in each item here,
             nasaImageView = itemView.findViewById(R.id.nasaimage_imageview);
             Glide.with(itemView.getContext())
                     .load(item.getLinks().get(0).getHref())
@@ -176,17 +181,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                     chip.setChipStrokeColor(ColorStateList.valueOf(Color.WHITE));
                     chip.setChipStrokeWidth((float) 2.0);
                     binding.itemChipGroup.addView(chip);
-//                    Log.d("TAG_KEY", binding.getData().getKeywords().get(i));
-//                    ObjectAnimator forwardAnimator = ObjectAnimator.ofFloat(binding.itemHorizontalScrollview, "translationX", 1200f);
-//                    forwardAnimator.setDuration(20000);
-//                    forwardAnimator.start();
-//
-//                    forwardAnimator.setRepeatCount(Animation.INFINITE);
-
-//
                 }
 
-//                Log.d("TAG_KEY", binding.getData().getKeywords().size() + "");
             }
 
 
@@ -240,11 +236,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                     labelTextView.setText(text + " : " + (int) (confidence * 100) + "%");
                                     labelTextView.setLayoutParams(params);
                                     labelTextView.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.textview_border));
+                                    labelTextView.setPadding(10,10,10,10);
 //                                    labelTextView.setBackgroundColor(Color.WHITE);
                                     labelTextView.setTextColor(Color.parseColor("#420101"));
                                     binding.imageLabelLayout.addView(labelTextView);
+                                    binding.imageLabelLayout.invalidate();
 
-                                    if(labelTextView.getText().toString() == "")
+                                    if(labelTextView.getVisibility() == INVISIBLE)
                                     {
                                         binding.labelsLabelTextview.setVisibility(View.GONE);
                                     }
@@ -268,115 +266,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                         });
 
 
-//                Task<FirebaseVisionText> result =
-//                        detector.processImage(image).addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
-//                            @Override
-//                            public void onSuccess(FirebaseVisionText firebaseVisionText) {
-//
-//                                for(FirebaseVisionText.TextBlock textBlock : firebaseVisionText.getTextBlocks())
-//                                {
-//                                    Rect boundingBox = textBlock.getBoundingBox();
-//                                    Point[] cornerPoints = textBlock.getCornerPoints();
-//                                    String resultText = textBlock.getText();
-//                                    Log.d("TAG_BOUND", boundingBox + "");
-//                                    Log.d("TAG_CORNER", cornerPoints + "");
-//                                    Log.d("TAG_RESULT", resultText);
-//
-//
-//                    String blockText = textBlock.getText();
-//                    Float blockConfidence = textBlock.getConfidence();
-//                    List<RecognizedLanguage> blockLanguages = textBlock.getRecognizedLanguages();
-//                    Point[] blockCornerPoints = textBlock.getCornerPoints();
-//                    Rect blockFrame = textBlock.getBoundingBox();
-//                    for (FirebaseVisionText.Line line: textBlock.getLines()) {
-//                        String lineText = line.getText();
-//                        Float lineConfidence = line.getConfidence();
-//                        List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
-//                        Point[] lineCornerPoints = line.getCornerPoints();
-//                        Rect lineFrame = line.getBoundingBox();
-//                        for (FirebaseVisionText.Element element: line.getElements()) {
-//                            String elementText = element.getText();
-//                            Float elementConfidence = element.getConfidence();
-//                            List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
-//                            Point[] elementCornerPoints = element.getCornerPoints();
-//                            Rect elementFrame = element.getBoundingBox();
-//
-//                            //                                    binding.textResultsTextview.setText(resultText);
-//                                    if(lineText == null)
-//                                    {
-//                                        binding.imageTextLayout.setVisibility(View.GONE);
-//
-//                                    }
-//                                    else {
-////                                        binding.textResultsTextview.setText(resultText);
-//                                        TextView textTextView = new TextView(itemView.getContext());
-//                                        textTextView.setText(lineText);
-//                                        textTextView.setTextColor(Color.parseColor("#420101"));
-//                                        binding.imageTextLayout.addView(textTextView);
-//                                    }
-//                        }
-//                    }
-//                                }
-//
-//                            }
-//                        })
-//                        .addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception e) {
-//
-//                            }
-//                        });
-//---------------------------------_---------------___---_---_-----------_-_-_------
-//                String resultText = result.toString();
-//                for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
-//                    String blockText = block.getText();
-//                    Float blockConfidence = block.getConfidence();
-//                    List<RecognizedLanguage> blockLanguages = block.getRecognizedLanguages();
-//                    Point[] blockCornerPoints = block.getCornerPoints();
-//                    Rect blockFrame = block.getBoundingBox();
-//                    for (FirebaseVisionText.Line line: block.getLines()) {
-//                        String lineText = line.getText();
-//                        Float lineConfidence = line.getConfidence();
-//                        List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
-//                        Point[] lineCornerPoints = line.getCornerPoints();
-//                        Rect lineFrame = line.getBoundingBox();
-//                        for (FirebaseVisionText.Element element: line.getElements()) {
-//                            String elementText = element.getText();
-//                            Float elementConfidence = element.getConfidence();
-//                            List<RecognizedLanguage> elementLanguages = element.getRecognizedLanguages();
-//                            Point[] elementCornerPoints = element.getCornerPoints();
-//                            Rect elementFrame = element.getBoundingBox();
-//                        }
-//                    }
-//                }
-
             }catch (Exception e) {
 
                 e.printStackTrace();
 
 
             }
-
-
-
-
-//
-//            labeler.processImage(image)
-//                    .addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
-//                        @Override
-//                        public void onSuccess(List<FirebaseVisionImageLabel> labels) {
-//                            // Task completed successfully
-//                            // ...
-//                        }
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            // Task failed with an exception
-//                            // ...
-//                        }
-//                    });
-
 
             binding.executePendingBindings();
         }
