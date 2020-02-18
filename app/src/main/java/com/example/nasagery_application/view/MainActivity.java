@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Animation slideBackLeft = AnimationUtils.loadAnimation(this, R.anim.slide_left_back);
         Animation slideBackRight = AnimationUtils.loadAnimation(this, R.anim.slide_back_right);
         Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
+        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
 
 
 
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
+                activityMainBinding.rightStar.startAnimation(shake);
+                activityMainBinding.rightStar.setImageResource(R.drawable.half_star_white_24dp);
                 activityMainBinding.titleTextview.startAnimation(slideBackLeft);
             }
 
@@ -87,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
 
+                activityMainBinding.leftStar.startAnimation(shake);
+                activityMainBinding.leftStar.setImageResource(R.drawable.half_star_white_24dp);
                 activityMainBinding.titleTextview.startAnimation(slideBackRight);
 
             }
@@ -114,6 +119,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        rotate.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                activityMainBinding.leftStar.startAnimation(shake);
+                activityMainBinding.rightStar.startAnimation(shake);
+                activityMainBinding.leftStar.setImageResource(R.drawable.solid_star_white_24dp);
+                activityMainBinding.rightStar.setImageResource(R.drawable.solid_star_white_24dp);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         //Chip group is created and ready for display once the user is ready to input
         //a search word

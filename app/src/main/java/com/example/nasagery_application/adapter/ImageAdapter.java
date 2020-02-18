@@ -38,8 +38,6 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import java.util.List;
 
-import static android.view.View.INVISIBLE;
-
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
     private Context context;
@@ -122,10 +120,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
             binding.setData(item.getData().get(0));
             binding.setLink(item.getLinks().get(0));
-
-
-//            binding.itemCardview.setBackground(ContextCompat.getDrawable(itemView.getContext(), R.drawable.title_gradient_background));
-//            binding.itemCardview.setCardBackgroundColor(ContextCompat.getColor(itemView.getContext()));
 
             if(binding.getData().getSecondaryCreator() == null)
             {
@@ -260,11 +254,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                     binding.imageLabelLayout.addView(labelTextView);
                                     binding.imageLabelLayout.invalidate();
 
-                                    if(labelTextView.getVisibility() == INVISIBLE)
+                                    if(labelTextView.getVisibility() == View.INVISIBLE)
                                     {
                                         binding.labelsLabelTextview.setVisibility(View.GONE);
                                     }
-
 
                                     Log.d("TAG_TEXT", text);
                                     Log.d("TAG_ID", entityId);
@@ -279,7 +272,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                                 Log.d("TAG_ERROR", "It didn't work");
                                 e.printStackTrace();
 
-
                             }
                         });
 
@@ -287,7 +279,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             }catch (Exception e) {
 
                 e.printStackTrace();
-
 
             }
 
