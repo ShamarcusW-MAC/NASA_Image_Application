@@ -23,7 +23,7 @@ import com.example.nasagery_application.adapter.ImageAdapter;
 import com.example.nasagery_application.databinding.ActivityMainBinding;
 import com.example.nasagery_application.model.Item;
 import com.example.nasagery_application.model.Utils;
-import com.example.nasagery_application.viewmodel.NASAViewModel;
+import com.example.nasagery_application.viewmodel.NasaViewModel;
 import com.example.nasagery_application.model.Response;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -32,15 +32,13 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class MainActivity extends AppCompatActivity {
 
-    private NASAViewModel nasaViewModel;
-
+    private NasaViewModel nasaViewModel;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     private RecyclerView recyclerView;
     private ImageAdapter imageAdapter;
     private EditText editText;
     private Utils status;
     private int page = 1;
-
     private ActivityMainBinding activityMainBinding;
 
     @Override
@@ -48,17 +46,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        nasaViewModel = ViewModelProviders.of(this).get(NASAViewModel.class);
+        nasaViewModel = ViewModelProviders.of(this).get(NasaViewModel.class);
         activityMainBinding.setViewModel(nasaViewModel);
-
 
         Animation slideRight = AnimationUtils.loadAnimation(this, R.anim.slide_right);
         Animation slideBackLeft = AnimationUtils.loadAnimation(this, R.anim.slide_left_back);
         Animation slideBackRight = AnimationUtils.loadAnimation(this, R.anim.slide_back_right);
         Animation rotate = AnimationUtils.loadAnimation(this, R.anim.rotate);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-
-
 
         activityMainBinding.titleTextview.startAnimation(slideRight);
         slideRight.setAnimationListener(new Animation.AnimationListener() {
@@ -154,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
         Chip entryChip9 = findViewById(R.id.chip9);
         Chip entryChip10 = findViewById(R.id.chip10);
 
-
         //Once edit text is clicked for input, the chip group appears. Once the user has
         //clicked on a chip, that said chip will be removed.
         activityMainBinding.searchEdittext.setOnClickListener(new View.OnClickListener() {
@@ -192,18 +186,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         //Check if network is up and running, shows green check mark if it's up, red x if it's not.
         if(status.isNetworkAvailable(this)){
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_check_green_24dp);
         }else{
             activityMainBinding.statusImageview.setImageResource(R.drawable.ic_close_red_24dp);
         }
-
-
-
-
-
 
         //Once button is clicked, the api call is made.
         activityMainBinding.searchButton.setOnClickListener(new View.OnClickListener() {
@@ -229,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
                 {
                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
                 }
-//                activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
                 entryChipGroup.setVisibility(View.INVISIBLE);
                 page -= 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
@@ -237,8 +224,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         activityMainBinding.rightArrowImageview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,7 +233,6 @@ public class MainActivity extends AppCompatActivity {
                     activityMainBinding.leftArrowImageview.setVisibility(View.VISIBLE);
 
                 }
-//                activityMainBinding.seeMoreTextview.setVisibility(View.GONE);
                 entryChipGroup.setVisibility(View.INVISIBLE);
                 page += 1;
                 nasaViewModel.makeCall(activityMainBinding.searchEdittext.getText().toString(), page);
@@ -287,9 +271,6 @@ public class MainActivity extends AppCompatActivity {
                                     imageAdapter.notifyDataSetChanged();
                                     activityMainBinding.swipeRecyclerview.setRefreshing(false);
                                     activityMainBinding.leftArrowImageview.setVisibility(View.INVISIBLE);
-//                                    pageSize = 20;
-//                                    imageAdapter.limit = pageSize;
-//                                    Toast.makeText(MainActivity.this, "Number of photos: " + imageAdapter.getItemCount(), Toast.LENGTH_SHORT).show();
                                     Toast.makeText(MainActivity.this, "Page: " + page, Toast.LENGTH_SHORT).show();
 
                                 } else {
@@ -312,22 +293,15 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         });
-
-
-
     }
 
     //Adapter is initialized and recycler view is filled with items once called upon and if
     //api call is success
     private void displayImages(List<Item> images) {
         Log.d("TAG_COUNT", "" + images.size());
-
-
         editText = findViewById(R.id.search_edittext);
         imageAdapter = new ImageAdapter(this, images);
         recyclerView = findViewById(R.id.image_recyclerview);
-//        int keywordsLength = images.get(0).getData().get(0).getKeywords().size();
-
 
         ((SimpleItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(true);
 

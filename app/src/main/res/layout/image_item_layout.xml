@@ -14,8 +14,6 @@
             type="com.example.nasagery_application.model.Link" />
     </data>
 
-
-
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
         android:id="@+id/item_cardview"
@@ -73,9 +71,6 @@
                 app:layout_constraintTop_toTopOf="@id/image_author_textview"
 
                 />
-
-
-
 
             <TextView
                 style="@style/TextAppearance.NASA.HeadlineText3"
@@ -183,31 +178,6 @@
 
             </LinearLayout>
 
-
-
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/left_scroll_button"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@color/colorPrimary"-->
-<!--                android:padding="@dimen/dimen8"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                />-->
-
-<!--            <ImageButton-->
-<!--                android:id="@+id/right_scroll_button"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@color/colorPrimary"-->
-<!--                android:padding="@dimen/dimen8"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/item_horizontal_scrollview"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                />-->
-
             <TextView
                 style="@style/TextAppearance.NASA.BodyText1"
                 android:id="@+id/tell_scroll_textview"
@@ -244,9 +214,6 @@
                 </com.google.android.material.chip.ChipGroup>
 
             </HorizontalScrollView>
-
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,10 +6,10 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NASAFactory {
+public class RetrofitConfig {
 
     private String BASE_URL = "https://images-api.nasa.gov";
-    private NASAService nasaService = createService(retrofitInstance());
+    private ApiService nasaService = createService(retrofitInstance());
 
     private Retrofit retrofitInstance(){
         return new Retrofit.Builder().baseUrl(BASE_URL)
@@ -19,8 +19,8 @@ public class NASAFactory {
     }
 
 
-    private NASAService createService(Retrofit retrofit){
-        return retrofit.create(NASAService.class);
+    private ApiService createService(Retrofit retrofit){
+        return retrofit.create(ApiService.class);
     }
 
     public Observable<Image> getImage(String url, int page) {

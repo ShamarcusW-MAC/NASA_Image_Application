@@ -10,7 +10,7 @@
             type="com.example.nasagery_application.model.Image" />
         <variable
             name="viewModel"
-            type="com.example.nasagery_application.viewmodel.NASAViewModel" />
+            type="com.example.nasagery_application.viewmodel.NasaViewModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout

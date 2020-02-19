@@ -5,7 +5,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface NASAService {
+public interface ApiService {
 
     @GET("/search?media_type=image&q")
     Observable<Image> getImage(@Query("q")String keyword,

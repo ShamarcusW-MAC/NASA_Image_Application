@@ -82,7 +82,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 holder.binding.nasaimageImageview.startAnimation(animUp);
             }
             holder.binding.itemCardview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
-//            holder.binding.nasaimageImageview.animate().translationY(holder.binding.nasaimageImageview.getHeight());
             holder.binding.imagetitleTextview.setEnabled(false);
             notifyItemChanged(position);
             holder.binding.imagetitleTextview.setEnabled(true);
@@ -114,6 +113,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             this.binding = binding;
         }
 
+        /*
+
+        #item
+         */
         @SuppressLint("ClickableViewAccessibility")
         private void bind(Item item)
         {
@@ -125,22 +128,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             {
                 binding.getData().setSecondaryCreator("Unknown");
             }
-
-
-//            binding.leftScrollButton.setImageResource(R.drawable.ic_chevron_left_dark_red_24dp);
-//            binding.leftScrollButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    binding.itemHorizontalScrollview.arrowScroll(HorizontalScrollView.FOCUS_LEFT);
-//                }
-//            });
-//            binding.rightScrollButton.setImageResource(R.drawable.ic_chevron_right_dark_red_24dp);
-//            binding.rightScrollButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    binding.itemHorizontalScrollview.arrowScroll(HorizontalScrollView.FOCUS_RIGHT);
-//                }
-//            });
 
             //Here are the views in which are visible depending on the boolean variable.
             //These view turn visible if the boolean is set to true, gone if set to false.
@@ -158,15 +145,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             binding.imageDateTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.itemHorizontalScrollview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.tellScrollTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
-//            binding.leftScrollButton.setVisibility(expanded ? View.VISIBLE : View.GONE);
-//            binding.rightScrollButton.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.labelsLabelTextview.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageLabelLayout.setVisibility(expanded ? View.VISIBLE : View.GONE);
             binding.imageDescriptionTextview.setMovementMethod(new ScrollingMovementMethod());
             binding.itemCardview.setStrokeColor(expanded ? Color.WHITE : 0);
             binding.itemCardview.setStrokeWidth(expanded ? 2 : 0);
             binding.tellScrollTextview.startAnimation(fade);
-
 
             //Card view will not scroll once the description view is touched upon.
             binding.imageDescriptionTextview.setOnTouchListener(new View.OnTouchListener() {
@@ -200,6 +184,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
             }
 
 
+
+            //Convert image into a bitmap
             try{
 
                 Glide.with(itemView.getContext())
@@ -220,18 +206,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
                 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
                         .getOnDeviceImageLabeler();
-
-
-//                FirebaseVisionTextRecognizer detector = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
-
-//                 Or, to set the minimum confidence required:
-//                 FirebaseVisionOnDeviceImageLabelerOptions options =
-//                     new FirebaseVisionOnDeviceImageLabelerOptions.Builder()
-//                         .setConfidenceThreshold(0.7f)
-//                         .build();
-//                 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance()
-//                     .getOnDeviceImageLabeler(options);
-
 
                 binding.imageLabelLayout.removeAllViews();
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -274,7 +248,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
                             }
                         });
-
 
             }catch (Exception e) {
 

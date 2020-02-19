@@ -4,17 +4,17 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.nasagery_application.model.Image;
 import com.example.nasagery_application.model.Response;
-import com.example.nasagery_application.network.NASAFactory;
+import com.example.nasagery_application.network.RetrofitConfig;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class NASAViewModel extends ViewModel {
+public class NasaViewModel extends ViewModel {
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
     public MutableLiveData<Response> image = new MutableLiveData();
-    private NASAFactory nasaFactory = new NASAFactory();
+    private RetrofitConfig nasaFactory = new RetrofitConfig();
 
     public Observable<Image> getImage(String url, int page) {
         return nasaFactory.getImage(url, page)
