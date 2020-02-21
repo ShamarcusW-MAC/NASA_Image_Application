@@ -3,7 +3,16 @@
     <string name="app_title">NASAGERY</string>
     <string name="button_text">SEARCH</string>
     <string name ="keyword_input">Enter keyword(s)…</string>
+    <string name="scroll_keywords">Scroll to view keywords…</string>
+    <string name="no_results">No Results.</string>
     <string name="labels_label">Labels: </string>
+    <string name="see_more">(Click title to see more!)</string>
+    <string name="no_search_word">No search word! No images!</string>
+    <string name="title_label">Title: </string>
+    <string name="author_label">Author: </string>
+    <string name="date_label">Date/Time: </string>
+    <string name="description_label">Description: </string>
+    <string name="unknown_label">Unknown</string>
     <string name="chip1">earth</string>
     <string name="chip2">sun</string>
     <string name="chip3">moon</string>

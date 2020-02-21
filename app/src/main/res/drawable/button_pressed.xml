@@ -3,11 +3,11 @@
 
     <item
         android:state_pressed="true"
-        android:drawable="@color/colorRed"
+        android:drawable="@color/colorWhite"
         />
 
     <item
-        android:drawable="@color/colorDarkBlue"
+        android:drawable="@color/colorPrimary"
 
         />
 
